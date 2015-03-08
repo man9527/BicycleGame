@@ -34,6 +34,7 @@ public class UsbProxy {
     private volatile boolean running = true;
 
     private UsbProxy() {
+        startGetValue();
 //        System.out.println(VENDOR_ID + "," + PRODUCT_ID);
 //        try {
 //            UsbDevice device = findUsbDevice(UsbHostManager.getUsbServices().getRootUsbHub());
@@ -94,14 +95,16 @@ public class UsbProxy {
         running = true;
         executorService.submit(() -> {
             while(running) {
-                int rpm = random.nextInt(50);
-                int highTemperature = random.nextInt(30);
-                int lowTemperature = random.nextInt(20);
+                int rpm = random.nextInt(170)+30;
+                int highTemperature = random.nextInt(10)+20;
+                int lowTemperature = random.nextInt(10)+10;
+                int envTemperature = random.nextInt(2)+20;
 
                 listeners.forEach((e)->{
                     e.setRpm(rpm);
                     e.setHighTemperature(highTemperature);
                     e.setLowTemperature(lowTemperature);
+                    e.setEnvTemperature(envTemperature);
                 });
 
                 try {

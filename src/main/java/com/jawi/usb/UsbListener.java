@@ -7,4 +7,5 @@ public interface UsbListener {
     void setRpm(int rpm);
     void setHighTemperature(int degree);
     void setLowTemperature(int degree);
+    void setEnvTemperature(int degree);
 }

@@ -4,11 +4,8 @@ import com.jawi.Controller;
 import com.jawi.usb.UsbListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import org.reactfx.Subscription;
 import org.reactfx.util.FxTimer;
 import org.reactfx.util.Timer;
 
@@ -19,10 +16,34 @@ import java.time.Duration;
  */
 public class GameController implements UsbListener {
 
-    private static GameController instance = new GameController();
+    private static final GameController instance = new GameController();
+    private static final String formatStr = "%02d";
+    private static final IntegerProperty maxBurnCal=new SimpleIntegerProperty(0);
 
-    public enum GameState {
-        STOPPED, RUNNING
+    interface State {
+        State next();
+    }
+
+    public enum GameState implements State {
+        READY {
+            @Override
+            public State next() {
+                GameController.get().runGame();
+                return RUNNING;
+            }
+        }, STOPPED {
+            @Override
+            public State next() {
+                GameController.get().newGame();
+                return READY;
+            }
+        }, RUNNING {
+            @Override
+            public State next() {
+                GameController.get().stopGame();
+                return STOPPED;
+            }
+        }
     }
 
     private final IntegerProperty totalGameTime = new SimpleIntegerProperty(60);
@@ -30,7 +51,7 @@ public class GameController implements UsbListener {
     // game state control
     private IntegerProperty timePassed;
     private NumberBinding timeLeft;
-    private GameState state = GameState.STOPPED;
+    private State state = GameState.STOPPED;
     private long receivingDataTimestamp;
     Timer gameTimer;
     Timer updateUITimer;
@@ -40,18 +61,39 @@ public class GameController implements UsbListener {
     private Controller controller;
 
     private GameController() {}
+
     public static GameController get() {return instance;}
 
     public void setView(Controller controller) {
         this.controller=controller;
     }
 
-    public void newGame() {
-        handleGameTime();
-        gameStats = new GameStats(timePassed);
-        configSlider();
+    public void next() {
+        this.state.next();
     }
 
+    public void newGame() {
+        if (state.equals(GameState.RUNNING)) {
+            stopGame();
+        }
+        timePassed = new SimpleIntegerProperty(0);
+        gameStats = new GameStats(timePassed);
+        setUI((int) gameStats.getTotalBurn(), gameStats.getRpm(), gameStats.getHighTemperature(), gameStats.getLowTemperature(), gameStats.getEnvTemperature());
+        controller.getClock().setText("60");
+
+        state=GameState.READY;
+    }
+
+    public void runGame() {
+        handleGameTime();
+        state=GameState.RUNNING;
+    }
+
+    private void stopGame() {
+        state = GameState.STOPPED;
+        gameTimer.stop();
+        updateUITimer.stop();
+    }
 
     private void handleInterruptGame() {
         long current = System.currentTimeMillis();
@@ -61,13 +103,7 @@ public class GameController implements UsbListener {
         }
     }
 
-    private void stopGame() {
-        gameTimer.stop();
-        updateUITimer.stop();
-    }
-
     private void handleGameTime() {
-        timePassed = new SimpleIntegerProperty(0);
         timeLeft = Bindings.subtract(totalGameTime, timePassed);
 
         if (gameTimer==null) {
@@ -76,43 +112,72 @@ public class GameController implements UsbListener {
                     () -> {
                         handleInterruptGame();
                         timePassed.set(timePassed.get() + 1);
-                        controller.getClock().setText(String.valueOf(timeLeft.getValue()));
+                        controller.getClock().setText(String.format(formatStr, timeLeft.getValue()));
 
                         if (timeLeft.getValue().intValue() == 0) {
                             stopGame();
+                        }
+
+                        if (gameStats.getTotalBurn()>maxBurnCal.get()) {
+                            maxBurnCal.set((int) gameStats.getTotalBurn());
+                            controller.getMaxBurnCalLabel().setText(String.valueOf(maxBurnCal.get()));
                         }
                     });
 
             updateUITimer = FxTimer.runPeriodically(
                     Duration.ofMillis(100),
                     () -> {
-                        controller.getCalBurn().valueProperty().set(gameStats.getTotalBurn());
+                        setUI((int) gameStats.getTotalBurn(), gameStats.getRpm(), gameStats.getHighTemperature(), gameStats.getLowTemperature(), gameStats.getEnvTemperature());
                     });
+
         } else {
             gameTimer.restart();
             updateUITimer.restart();
         }
     }
 
-    private void configSlider() {
-        //controller.getCalBurn().valueProperty().bind(gameStats.getCalBurn());
+    private void setUI(int calBurn, int rpm, int highTemperature, int lowTemperature, int envTemperature) {
+        controller.getCalBurn().valueProperty().set(calBurn);
+        controller.getRpmLabel().setText(String.valueOf(rpm));
+        controller.getHighTemperatureLabel().setText(String.valueOf(highTemperature)+"°C");
+        controller.getLowTemperatureLabel().setText(String.valueOf(lowTemperature)+"°C");
+        controller.getEnvTemperatureLabel().setText(String.valueOf(envTemperature)+"°C");
     }
 
     @Override
     public void setRpm(int rpm) {
-        receivingDataTimestamp = System.currentTimeMillis();
+        setReceivingDataTimestamp();
         if (this.gameStats!=null) {
+            if (state.equals(GameState.READY)) {
+                this.runGame();
+            }
             this.gameStats.setRpm(rpm);
         }
     }
 
-    @Override
-    public void setHighTemperature(int degree) {
+    private void setReceivingDataTimestamp() {
         receivingDataTimestamp = System.currentTimeMillis();
     }
 
     @Override
-    public void setLowTemperature(int degree) {
-        receivingDataTimestamp = System.currentTimeMillis();
+    public void setHighTemperature(int degree) {
+        if (this.gameStats!=null) {
+            this.gameStats.setHighTemperature(degree);
+        }
     }
+
+    @Override
+    public void setLowTemperature(int degree) {
+        if (this.gameStats!=null) {
+            this.gameStats.setLowTemperature(degree);
+        }
+    }
+
+    @Override
+    public void setEnvTemperature(int degree) {
+        if (this.gameStats!=null) {
+            this.gameStats.setEnvTemperature(degree);
+        }
+    }
+
 }

@@ -17,6 +17,25 @@ public class Controller {
     @FXML
     private Slider calBurn;
 
+    @FXML
+    private Label testLabel;
+
+    @FXML
+    private Label highTemperatureLabel;
+
+    @FXML
+    private Label lowTemperatureLabel;
+
+    @FXML
+    private Label rpmLabel;
+
+    @FXML
+    private Label envTemperatureLabel;
+
+    @FXML
+    private Label maxBurnCalLabel;
+
+
     public Label getClock() {
         return clock;
     }
@@ -35,9 +54,37 @@ public class Controller {
         UsbProxy.get().stopGetValue();
     }
 
+    public Label getTestLabel() {
+        return testLabel;
+    }
+
+    public Label getHighTemperatureLabel() {
+        return highTemperatureLabel;
+    }
+
+    public Label getLowTemperatureLabel() {
+        return lowTemperatureLabel;
+    }
+
+    public Label getRpmLabel() {
+        return rpmLabel;
+    }
+
+    public Label getEnvTemperatureLabel() {
+        return envTemperatureLabel;
+    }
+
+    public Label getMaxBurnCalLabel() {
+        return maxBurnCalLabel;
+    }
+
     @FXML
     private void newGame() {
-        System.out.println("new game");
         GameController.get().newGame();
+    }
+
+    @FXML
+    private void runGame() {
+        GameController.get().runGame();
     }
 }

@@ -11,26 +11,68 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class GameStats {
 
     private IntegerProperty rpm = new SimpleIntegerProperty(0);
-    private IntegerProperty lowTemperature = new SimpleIntegerProperty(0);
-    private IntegerProperty highTemperature = new SimpleIntegerProperty(0);
+    private IntegerProperty envTemperature = new SimpleIntegerProperty(20);
+    private IntegerProperty lowTemperature = new SimpleIntegerProperty(20);
+    private IntegerProperty highTemperature = new SimpleIntegerProperty(30);
 
     private IntegerProperty totalBurn = new SimpleIntegerProperty(0);
-    private NumberBinding calBurn;
+    private IntegerProperty calBurn = new SimpleIntegerProperty(0);
+    private IntegerProperty timePassed;
 
     public GameStats(final IntegerProperty timePassed) {
-        calBurn = Bindings.multiply(rpm, timePassed);
+        this.timePassed = timePassed;
         calBurn.addListener((event)->{
             totalBurn.set(totalBurn.intValue()+calBurn.intValue());
         });
     }
 
     public double getTotalBurn() {
+        calBurn.set(rpm.get()/6);
         return totalBurn.doubleValue();
     }
 
     public void setRpm(int rpm) {
-        System.out.println(rpm);
         this.rpm.set(rpm);
+    }
+
+    public IntegerProperty rpmProperty() {
+        return rpm;
+    }
+
+    public void setEnvTemperature(int degree) {
+        envTemperature.set(degree);
+    }
+
+    public int getEnvTemperature() {
+        return envTemperature.get();
+    }
+
+    public IntegerProperty envTemperatureProperty() {
+        return envTemperature;
+    }
+
+    public int getLowTemperature() {
+        return lowTemperature.get();
+    }
+
+    public IntegerProperty lowTemperatureProperty() {
+        return lowTemperature;
+    }
+
+    public void setLowTemperature(int lowTemperature) {
+        this.lowTemperature.set(lowTemperature);
+    }
+
+    public int getHighTemperature() {
+        return highTemperature.get();
+    }
+
+    public IntegerProperty highTemperatureProperty() {
+        return highTemperature;
+    }
+
+    public void setHighTemperature(int highTemperature) {
+        this.highTemperature.set(highTemperature);
     }
 
     public int getRpm() {
