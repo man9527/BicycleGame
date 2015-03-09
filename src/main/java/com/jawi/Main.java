@@ -35,6 +35,7 @@ public class Main extends Application {
         });
 
         primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
         Node thumb = controller.getCalBurn().lookup(".thumb");
