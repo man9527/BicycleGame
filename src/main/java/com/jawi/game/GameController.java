@@ -139,9 +139,9 @@ public class GameController implements UsbListener {
     private void setUI(int calBurn, int rpm, int highTemperature, int lowTemperature, int envTemperature) {
         controller.getCalBurn().valueProperty().set(calBurn);
         controller.getRpmLabel().setText(String.valueOf(rpm));
-        controller.getHighTemperatureLabel().setText(String.valueOf(highTemperature)+"°C");
-        controller.getLowTemperatureLabel().setText(String.valueOf(lowTemperature)+"°C");
-        controller.getEnvTemperatureLabel().setText(String.valueOf(envTemperature)+"°C");
+        controller.getHighTemperatureLabel().setText(String.valueOf(highTemperature)+(char)186+"C");
+        controller.getLowTemperatureLabel().setText(String.valueOf(lowTemperature)+(char)186+"C");
+        controller.getEnvTemperatureLabel().setText(String.valueOf(envTemperature)+(char)186+"C");
     }
 
     @Override
