@@ -91,8 +91,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jawi/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37" vertical-offset="265" max-vertical-offset="765">
-              <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+            <state vertical-scroll-proportion="1.14" vertical-offset="0" max-vertical-offset="735">
+              <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
               <folding>
                 <element signature="e#1150#1151#0" expanded="true" />
                 <element signature="e#1209#1210#0" expanded="true" />
@@ -104,7 +104,7 @@
       <file leaf-file-name="GameStats.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jawi/game/GameStats.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="930">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
               <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
               <folding>
                 <element signature="e#1116#1117#0" expanded="true" />
@@ -171,9 +171,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jawi/game/ClassA.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jawi/game/ClassB.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jawi/game/GameController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jawi/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jawi/usb/UsbProxy.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jawi/game/GameStats.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jawi/Main.java" />
       </list>
     </option>
   </component>
@@ -841,12 +841,12 @@
       <workItem from="1424402906056" duration="15568000" />
       <workItem from="1424626344715" duration="8649000" />
       <workItem from="1424696797006" duration="14359000" />
-      <workItem from="1425290008945" duration="38019000" />
+      <workItem from="1425290008945" duration="39736000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76595000" />
+    <option name="totallyTimeSpent" value="78312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="731" extended-state="6" />
@@ -1426,8 +1426,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jawi/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37" vertical-offset="265" max-vertical-offset="765">
-          <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+        <state vertical-scroll-proportion="1.14" vertical-offset="0" max-vertical-offset="735">
+          <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
           <folding>
             <element signature="e#1150#1151#0" expanded="true" />
             <element signature="e#1209#1210#0" expanded="true" />

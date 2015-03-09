@@ -48,9 +48,7 @@ public class Main extends Application {
                 controller.getTestLabel().setLayoutX(thumb.getLayoutX());
             }
         });
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
