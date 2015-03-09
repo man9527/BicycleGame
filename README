@@ -1,11 +1,12 @@
 How to execute
-<h1>1. Install JAVA 8</h1>
+==============
+0. Install JAVA 8
 
 
-2. Configure JAVA_HOME
+0. Configure JAVA_HOME
 configure your JAVA_HOME in environment variable or in gradle.properties
 
-3. Run it by executing this command:
+0. Run it by executing this command:
 Windows:
 ./gradlew.bat -PmainClass=com.jawi.Main execute
  
