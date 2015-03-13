@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 
 /**
  * Created by man9527 on 2015/2/20.
@@ -35,6 +36,11 @@ public class Controller {
     @FXML
     private Label maxBurnCalLabel;
 
+    @FXML
+    private ImageView leftImageView;
+
+    @FXML
+    private ImageView rightImageView;
 
     public Label getClock() {
         return clock;
@@ -76,6 +82,14 @@ public class Controller {
 
     public Label getMaxBurnCalLabel() {
         return maxBurnCalLabel;
+    }
+
+    public ImageView getLeftImageView() {
+        return leftImageView;
+    }
+
+    public ImageView getRightImageView() {
+        return rightImageView;
     }
 
     @FXML

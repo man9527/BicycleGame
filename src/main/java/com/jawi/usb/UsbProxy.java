@@ -95,7 +95,7 @@ public class UsbProxy {
         running = true;
         executorService.submit(() -> {
             while(running) {
-                int rpm = random.nextInt(170)+30;
+                int rpm = random.nextInt(10)+20;
                 int highTemperature = random.nextInt(10)+20;
                 int lowTemperature = random.nextInt(10)+10;
                 int envTemperature = random.nextInt(2)+20;

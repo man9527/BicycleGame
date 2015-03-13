@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="TOP_CENTER" hgap="1" maxHeight="768.0" maxWidth="1024.0" minHeight="768.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-image: url('daikin-design-01.png'); -fx-background-repeat: no-repeat; -fx-background-position: center top;" vgap="1" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jawi.Controller">
+<GridPane alignment="TOP_CENTER" maxHeight="768.0" maxWidth="1024.0" minHeight="768.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-image: url('daikin-design-01.png'); -fx-background-repeat: no-repeat; -fx-background-position: center top;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jawi.Controller">
    <columnConstraints>
       <ColumnConstraints fillWidth="true" hgrow="ALWAYS" maxWidth="512.0" minWidth="190.0" prefWidth="50.0" />
       <ColumnConstraints fillWidth="true" hgrow="ALWAYS" maxWidth="512.0" minWidth="190.0" prefWidth="50.0" />
@@ -54,9 +54,9 @@
                <padding>
                   <Insets bottom="20.0" left="10.0" />
                </padding></Label>
-             <Slider fx:id="calBurn" max="15000.0" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="16.0" prefWidth="360.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+             <Slider fx:id="calBurn" max="300.0" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="16.0" prefWidth="360.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                <padding>
-                  <Insets left="40.0" top="40.0" />
+                  <Insets left="40.0" top="85.0" />
                </padding></Slider>
             <Label fx:id="rpmLabel" alignment="CENTER" contentDisplay="CENTER" text="0" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
@@ -79,7 +79,7 @@
             </Label>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Label fx:id="testLabel" prefHeight="8.0" prefWidth="80.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="testLabel" prefHeight="8.0" prefWidth="80.0" text="000" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="19.0" />
                      </font>
@@ -98,6 +98,24 @@
       </Label>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <children>
+            <Pane prefHeight="512.0" prefWidth="512.0" style="-fx-background-image: url(anig012BG2.png);" AnchorPane.leftAnchor="0.0">
+               <children>
+                  <ImageView fx:id="leftImageView" fitHeight="507.0" fitWidth="520.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@anib011.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="512.0" prefWidth="512.0" style="-fx-background-image: url(anig012BG.png)" AnchorPane.leftAnchor="512.0">
+               <children>
+                  <ImageView fx:id="rightImageView" fitHeight="507.0" fitWidth="512.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@anig011.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
              <Label fx:id="clock" alignment="CENTER" layoutX="448.0" layoutY="86.0" prefHeight="134.0" prefWidth="127.0" style="-fx-background-image: url(time_left.png);-fx-background-position: -67 -21, 160 20, 20 160, 160 160;" text="60" AnchorPane.leftAnchor="448.0" AnchorPane.topAnchor="76.0">
                <font>
                   <Font name="Arial Black" size="60.0" />
@@ -105,16 +123,6 @@
                <padding>
                   <Insets top="30.0" />
                </padding></Label>
-            <ImageView fitHeight="400.0" fitWidth="279.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@cold.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="396.0" fitWidth="183.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
-               <image>
-                  <Image url="@hot.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
    </children>

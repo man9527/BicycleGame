@@ -1,6 +1,7 @@
 .slider .thumb {
-    /*-fx-background-image :url("thumb_png.png");
-    -fx-padding: 64;*/
+    -fx-background-image :url("bar.png");
+    -fx-padding: 0 17 65 8;
+    -fx-background-position: -3 -13;
 }
 
 .slider .track {
