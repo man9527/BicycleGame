@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  * Created by man9527 on 2015/2/20.
@@ -41,6 +42,12 @@ public class Controller {
 
     @FXML
     private ImageView rightImageView;
+
+    @FXML
+    private Pane gameResultLabel;
+
+    @FXML
+    private Label gameResultTextLabel;
 
     public Label getClock() {
         return clock;
@@ -90,6 +97,14 @@ public class Controller {
 
     public ImageView getRightImageView() {
         return rightImageView;
+    }
+
+    public Pane getGameResultLabel() {
+        return gameResultLabel;
+    }
+
+    public Label getGameResultTextLabel() {
+        return gameResultTextLabel;
     }
 
     @FXML

@@ -134,6 +134,7 @@ public class GameController implements UsbListener {
         controller.getRightImageView().setTranslateY(0);
         controller.getLeftImageView().setImage(imageGroups.get(0).get(0));
         controller.getRightImageView().setImage(imageGroups.get(1).get(0));
+        this.showHideResultLabel(false);
         state=GameState.READY;
     }
 
@@ -150,6 +151,9 @@ public class GameController implements UsbListener {
         updateUITimer.stop();
         changePeopleTimer.stop();
         currentTransition.stop();
+
+        controller.getGameResultTextLabel().setText(String.format(formatStr, this.gameStats.totalBurnProperty().getValue()));
+        this.showHideResultLabel(true);
     }
 
     private void handleInterruptGame() {
@@ -334,4 +338,18 @@ public class GameController implements UsbListener {
         }
     }
 
+    public void showHideResultLabel(boolean isShow) {
+        if (isShow) {
+           TranslateTransition translateTransition = TranslateTransitionBuilder.create()
+                    .duration(Duration.seconds(0.5))
+                    .node(controller.getGameResultLabel())
+                    .toY(0)
+                    .cycleCount(1)
+                    .autoReverse(false)
+                    .build();
+            translateTransition.play();
+        } else {
+            controller.getGameResultLabel().setTranslateY(500);
+        }
+    }
 }

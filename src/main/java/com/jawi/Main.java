@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,10 +49,12 @@ public class Main extends Application {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Platform.runLater(()->{GameController.get().next();});
+                Platform.runLater(() -> {
+                    //GameController.get().next();
+                });
             }
         });
-
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         //primaryStage.setFullScreen(true);
         primaryStage.show();
