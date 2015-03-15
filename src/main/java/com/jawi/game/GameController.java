@@ -145,10 +145,9 @@ public class GameController implements UsbListener {
     }
 
     private void stopGame() {
-        System.out.println("game stopped");
         state = GameState.STOPPED;
-        gameTimer.stop();
         updateUITimer.stop();
+        gameTimer.stop();
         changePeopleTimer.stop();
         currentTransition.stop();
 
@@ -189,8 +188,8 @@ public class GameController implements UsbListener {
                             stopGame();
                         }
 
-                        if (gameStats.getTotalBurn()>maxBurnCal.get()) {
-                            maxBurnCal.set((int) gameStats.getTotalBurn());
+                        if (gameStats.totalBurnProperty().get()>maxBurnCal.get()) {
+                            maxBurnCal.set((int) gameStats.totalBurnProperty().get());
                             controller.getMaxBurnCalLabel().setText(String.valueOf(maxBurnCal.get()));
                         }
                     });
@@ -239,7 +238,7 @@ public class GameController implements UsbListener {
                 .duration(Duration.seconds(0.5))
                 .node(controller.getLeftImageView())
                 .fromY(controller.getLeftImageView().getTranslateY())
-                .toY(-512)
+                .toY(-502)
                 .cycleCount(1)
                 .autoReverse(false)
                 .build();
@@ -248,14 +247,18 @@ public class GameController implements UsbListener {
                 .duration(Duration.seconds(0.5))
                 .node(controller.getRightImageView())
                 .fromY(controller.getRightImageView().getTranslateY())
-                .toY(-512)
+                .toY(-502)
                 .cycleCount(1)
                 .autoReverse(false)
                 .build();
 
+        translateTransition.setDelay(Duration.millis(200));
+        translateTransition2.setDelay(Duration.millis(200));
+
         parallelTransition.getChildren().addAll(
                 animationLeft, animationRight, translateTransition, translateTransition2
         );
+
     }
 
     private void moveOutPeople(final ParallelTransition nextAnim) {

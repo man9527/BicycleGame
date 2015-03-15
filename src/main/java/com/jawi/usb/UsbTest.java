@@ -11,11 +11,11 @@ import java.nio.IntBuffer;
  */
 public class UsbTest {
     /** The vendor ID of the missile launcher. */
-    private static final short VENDOR_ID = 0x10c4;
+    private static final short VENDOR_ID = 0x067b;
     /** The product ID of the missile launcher. */
-    private static final short PRODUCT_ID = (short)0xea60;
+    private static final short PRODUCT_ID = (short)0x2303;
 
-    private static final byte OUT_ENDPOINT = (byte)0x01;
+    private static final byte OUT_ENDPOINT = (byte)0x02;
     private static final byte IN_ENDPOINT = (byte)0x81;
 
     private static final long TIMEOUT = 5000;

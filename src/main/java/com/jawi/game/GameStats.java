@@ -27,7 +27,7 @@ public class GameStats {
     }
 
     public double getTotalBurn() {
-        calBurn.set(rpm.get()/3);
+        calBurn.set(rpm.get()/4);
         return totalBurn.doubleValue();
     }
 

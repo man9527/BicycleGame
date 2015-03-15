@@ -44,18 +44,18 @@ public class DumpDevices
             final int result = LibUsb.getConfigDescriptor(device, i, descriptor);
             if (result < 0)
             {
-                throw new LibUsbException("Unable to read config descriptor",
-                        result);
+                //throw new LibUsbException("Unable to read config descriptor", result);
             }
             try
             {
+                if (result>=0)
                 System.out.println(descriptor.dump().replaceAll("(?m)^",
                         "  "));
             }
             finally
             {
                 // Ensure that the config descriptor is freed
-                LibUsb.freeConfigDescriptor(descriptor);
+                //bLibUsb.freeConfigDescriptor(descriptor);
             }
         }
     }

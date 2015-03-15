@@ -23,5 +23,7 @@
     <orderEntry type="library" name="Maven: org.usb4java:libusb4java:windows-x86_64:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.usb4java:libusb4java:osx-x86:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.usb4java:libusb4java:osx-x86_64:1.2.0" level="project" />
+    <orderEntry type="library" name="RXTXcomm" level="project" />
   </component>
 </module>
+

@@ -9,10 +9,10 @@ import java.util.List;
 public class UsbHighLevel {
 
     /** The vendor ID of the missile launcher. */
-    private static final short VENDOR_ID = 0x1130;
+    private static final short VENDOR_ID = 0x067b;
 
     /** The product ID of the missile launcher. */
-    private static final short PRODUCT_ID = 0x0202;
+    private static final short PRODUCT_ID = 0x2303;
 
 
     public static void main(String[] args) throws UsbException {
@@ -27,7 +27,7 @@ public class UsbHighLevel {
 
         // Claim the interface
         UsbConfiguration configuration = device.getUsbConfiguration((byte) 1);
-        UsbInterface iface = configuration.getUsbInterface((byte) 1);
+        UsbInterface iface = configuration.getUsbInterface((byte) 0);
         iface.claim(new UsbInterfacePolicy()
         {
             @Override
@@ -39,7 +39,7 @@ public class UsbHighLevel {
 
         try
         {
-            UsbEndpoint endpoint = iface.getUsbEndpoint((byte) 0x83);
+            UsbEndpoint endpoint = iface.getUsbEndpoint((byte) 0x81);
             UsbPipe pipe = endpoint.getUsbPipe();
             pipe.open();
             try

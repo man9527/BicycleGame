@@ -21,6 +21,11 @@ dependencies {
 }
 
 task execute(type:JavaExec) {
-    main = mainClass
+
+	if (project.hasProperty("mainClass")){
+        args mainClass
+    } else {
+		main = "com.jawi.Main"
+	}
     classpath = sourceSets.main.runtimeClasspath
 }
