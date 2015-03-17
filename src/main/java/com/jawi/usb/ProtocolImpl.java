@@ -48,7 +48,6 @@ public class ProtocolImpl implements Protocol {
     }
 
     public String getMessage(byte[] buffer, int len) {
-        System.out.println(buffer[0]);
         return new String(buffer, 0, tail);
     }
 }

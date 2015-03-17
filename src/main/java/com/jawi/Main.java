@@ -30,6 +30,8 @@ public class Main extends Application {
         GameController.get().setView(controller);
         UsbProxy.get().addListener(GameController.get());
 
+        UsbProxy.get().connect();
+
         Scene scene = new Scene(root, 1024, 768);
         scene.getStylesheets().addAll(this.getClass().getResource("/style.css").toExternalForm());
 

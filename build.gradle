@@ -22,10 +22,18 @@ dependencies {
 
 task execute(type:JavaExec) {
 
-	if (project.hasProperty("mainClass")){
+    if (project.hasProperty("simulate")) {
+        systemProperty "simulate", simulate
+    }
+    if (project.hasProperty("com")) {
+        systemProperty "COM", com
+    }
+
+    if (project.hasProperty("mainClass")){
         args mainClass
     } else {
 		main = "com.jawi.Main"
 	}
+
     classpath = sourceSets.main.runtimeClasspath
 }
