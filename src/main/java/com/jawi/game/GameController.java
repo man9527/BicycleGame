@@ -8,6 +8,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -30,10 +32,20 @@ public class GameController implements UsbListener {
 
     private final List<ArrayList<Image>> imageGroups = new ArrayList<>();
 
-    private ParallelTransition currentTransition;
-    private ParallelTransition parallelTransition = new ParallelTransition();
-    private ParallelTransition parallelTransition2 = new ParallelTransition();
-    private ParallelTransition parallelTransition3 = new ParallelTransition();
+    //private ParallelTransition currentTransition;
+    private ParallelTransition parallelTransitionLeft1 = new ParallelTransition();
+    private ParallelTransition parallelTransitionLeft2 = new ParallelTransition();
+    private ParallelTransition parallelTransitionLeft3 = new ParallelTransition();
+
+    private ParallelTransition parallelTransitionRight1 = new ParallelTransition();
+    private ParallelTransition parallelTransitionRight2 = new ParallelTransition();
+    private ParallelTransition parallelTransitionRight3 = new ParallelTransition();
+
+    private IntegerProperty leftImageIndex = new SimpleIntegerProperty(1);
+    private IntegerProperty rightImageIndex = new SimpleIntegerProperty(1);
+
+    private ParallelTransition leftCurrentTransition;
+    private ParallelTransition rightCurrentTransition;
 
     interface State {
         State next();
@@ -108,6 +120,58 @@ public class GameController implements UsbListener {
         imageGroups.add(group4);
         imageGroups.add(group5);
         imageGroups.add(group6);
+
+        this.leftImageIndex.addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue,
+                                Object newValue) {
+                int index = Integer.parseInt(newValue.toString());
+
+                GameController.this.leftCurrentTransition.stop();
+                ParallelTransition p = parallelTransitionLeft1;
+
+                if (index==1) {
+                    parallelTransitionLeft1.getChildren().removeAll();//=new ParallelTransition();
+                    initLeftImages(parallelTransitionLeft1, 0);
+                    p=parallelTransitionLeft1;
+                } else if (index==2) {
+                    parallelTransitionLeft2.getChildren().removeAll();//=new ParallelTransition();
+                    initLeftImages(parallelTransitionLeft2, 2);
+                    p=parallelTransitionLeft2;
+                } else if (index==3) {
+                    parallelTransitionLeft3.getChildren().removeAll();//=new ParallelTransition();
+                    initLeftImages(parallelTransitionLeft3, 4);
+                    p=parallelTransitionLeft3;
+                }
+                GameController.this.moveOutLeftPeople(p);
+            }
+        });
+
+        this.rightImageIndex.addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue,
+                                Object newValue) {
+                int index = Integer.parseInt(newValue.toString());
+                GameController.this.rightCurrentTransition.stop();
+                System.out.println("change event triggered:" + index);
+                ParallelTransition p = parallelTransitionRight1;
+
+                if (index==1) {
+                    parallelTransitionRight1=new ParallelTransition();
+                    initRightImages(parallelTransitionRight1, 1);
+                    p=parallelTransitionRight1;
+                } else if (index==2) {
+                    parallelTransitionRight2=new ParallelTransition();
+                    initRightImages(parallelTransitionRight2, 3);
+                    p=parallelTransitionRight2;
+                } else if (index==3) {
+                    parallelTransitionRight3=new ParallelTransition();
+                    initRightImages(parallelTransitionRight3, 5);
+                    p=parallelTransitionRight3;
+                }
+                GameController.this.moveOutRightPeople(p);
+            }
+        });
     }
 
     public static GameController get() {return instance;}
@@ -117,7 +181,11 @@ public class GameController implements UsbListener {
     }
 
     public void next() {
-        this.state.next();
+        System.out.print("From "+this.state);
+        synchronized (this.state) {
+            this.state.next();
+        }
+        System.out.print(" To "+this.state);
     }
 
     public void newGame() {
@@ -148,11 +216,18 @@ public class GameController implements UsbListener {
         state = GameState.STOPPED;
         updateUITimer.stop();
         gameTimer.stop();
-        changePeopleTimer.stop();
-        currentTransition.stop();
+        //changePeopleTimer.stop();
+        //currentTransition.stop();
 
         controller.getGameResultTextLabel().setText(String.format(formatStr, this.gameStats.totalBurnProperty().getValue()));
         this.showHideResultLabel(true);
+
+        //auto restart
+        FxTimer.runLater(java.time.Duration.ofSeconds(20), ()-> {
+            if (this.state.equals(GameState.STOPPED)) {
+                this.state.next();
+            }
+        });
     }
 
     private void handleInterruptGame() {
@@ -166,15 +241,27 @@ public class GameController implements UsbListener {
     private void handleGameTime() {
         receivingDataTimestamp = System.currentTimeMillis();
         timeLeft = Bindings.subtract(totalGameTime, timePassed);
-        parallelTransition = new ParallelTransition();
-        parallelTransition2 = new ParallelTransition();
-        parallelTransition3 = new ParallelTransition();
+        parallelTransitionLeft1 = new ParallelTransition();
+        parallelTransitionLeft2 = new ParallelTransition();
+        parallelTransitionLeft3 = new ParallelTransition();
+        parallelTransitionRight1 = new ParallelTransition();
+        parallelTransitionRight2 = new ParallelTransition();
+        parallelTransitionRight3 = new ParallelTransition();
 
-        initImages(parallelTransition, 0);
-        initImages(parallelTransition2, 2);
-        initImages(parallelTransition3, 4);
+        initLeftImages(parallelTransitionLeft1, 0);
+        initLeftImages(parallelTransitionLeft2, 2);
+        initLeftImages(parallelTransitionLeft3, 4);
 
-        currentTransition = parallelTransition;
+        initRightImages(parallelTransitionRight1, 1);
+        initRightImages(parallelTransitionRight2, 3);
+        initRightImages(parallelTransitionRight3, 5);
+
+        //new ParallelTransition(parallelTransitionLeft1, parallelTransitionRight1).play();
+
+        parallelTransitionLeft1.play();
+        parallelTransitionRight1.play();
+        this.leftCurrentTransition=parallelTransitionLeft1;
+        this.rightCurrentTransition=parallelTransitionRight1;
 
         if (true) {
             gameTimer = FxTimer.runPeriodically(
@@ -198,41 +285,62 @@ public class GameController implements UsbListener {
                     java.time.Duration.ofMillis(1000),
                     () -> {
                         setUI((int) gameStats.getTotalBurn(), gameStats.getRpm(), gameStats.getHighTemperature(), gameStats.getLowTemperature(), gameStats.getEnvTemperature());
+                        this.leftImageIndex.set(this.determineNextLeftImage());
+                        this.rightImageIndex.set(this.determineNextrightImage());
+                        System.out.println("right index:" + this.determineNextrightImage());
                     });
 
-            changePeopleTimer = FxTimer.runPeriodically(
-                    java.time.Duration.ofMillis(20000),
-                    () -> {
-                        ParallelTransition nextTransition=null;
-                        System.out.println(timePassed.get());
-                        if (timePassed.get()>=20 && timePassed.get()<40) {
-                            System.out.println("ani2");
-                            nextTransition = parallelTransition2;
-                        } else if (timePassed.get()>=40 && timePassed.get()<60) {
-                            System.out.println("ani3");
-                            nextTransition = parallelTransition3;
-                        } else if (timePassed.get()==60){
-                            System.out.println("ani0"+timePassed.get());
-                            nextTransition = parallelTransition;
-                        }
-                        currentTransition.stop();
-                        moveOutPeople(nextTransition);
-                        currentTransition = nextTransition;
-                    });
+//            changePeopleTimer = FxTimer.runPeriodically(
+//                    java.time.Duration.ofMillis(20000),
+//                    () -> {
+//                        ParallelTransition nextTransition=null;
+//                        System.out.println(timePassed.get());
+//                        if (timePassed.get()>=20 && timePassed.get()<40) {
+//                            System.out.println("ani2");
+//                            nextTransition = parallelTransition2;
+//                        } else if (timePassed.get()>=40 && timePassed.get()<60) {
+//                            System.out.println("ani3");
+//                            nextTransition = parallelTransition3;
+//                        } else if (timePassed.get()==60){
+//                            System.out.println("ani0"+timePassed.get());
+//                            nextTransition = parallelTransition;
+//                        }
+//                        currentTransition.stop();
+//                        moveOutPeople(nextTransition);
+//                        currentTransition = nextTransition;
+//                    });
         } else {
             gameTimer.restart();
             updateUITimer.restart();
-            changePeopleTimer.restart();
+            //changePeopleTimer.restart();
         }
 
-        currentTransition.playFromStart();
+        //currentTransition.playFromStart();
     }
 
-    private void initImages(ParallelTransition parallelTransition, int groupNumber) {
+    private int determineNextLeftImage() {
+        if (this.gameStats.getLowTemperature()<15) {
+            return 3;
+        } else if (this.gameStats.getLowTemperature()>20) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    private int determineNextrightImage() {
+        if (this.gameStats.getHighTemperature()<25) {
+            return 1;
+        } else if (this.gameStats.getHighTemperature()>30) {
+            return 3;
+        } else {
+            return 2;
+        }
+    }
+
+    private void initLeftImages(ParallelTransition parallelTransition, int groupNumber) {
         RotateImageAnimation animationLeft = new RotateImageAnimation(controller.getLeftImageView(), imageGroups.get(groupNumber));
-        RotateImageAnimation animationRight = new RotateImageAnimation(controller.getRightImageView(), imageGroups.get(groupNumber+1));
         animationLeft.setCycleCount(Animation.INDEFINITE);
-        animationRight.setCycleCount(Animation.INDEFINITE);
 
         TranslateTransition translateTransition = TranslateTransitionBuilder.create()
                 .duration(Duration.seconds(0.5))
@@ -242,6 +350,17 @@ public class GameController implements UsbListener {
                 .cycleCount(1)
                 .autoReverse(false)
                 .build();
+
+        translateTransition.setDelay(Duration.millis(200));
+
+        parallelTransition.getChildren().addAll(
+                animationLeft, translateTransition
+        );
+    }
+
+    private void initRightImages(ParallelTransition parallelTransition, int groupNumber) {
+        RotateImageAnimation animationRight = new RotateImageAnimation(controller.getRightImageView(), imageGroups.get(groupNumber));
+        animationRight.setCycleCount(Animation.INDEFINITE);
 
         TranslateTransition translateTransition2 = TranslateTransitionBuilder.create()
                 .duration(Duration.seconds(0.5))
@@ -252,27 +371,20 @@ public class GameController implements UsbListener {
                 .autoReverse(false)
                 .build();
 
-        translateTransition.setDelay(Duration.millis(200));
         translateTransition2.setDelay(Duration.millis(200));
 
         parallelTransition.getChildren().addAll(
-                animationLeft, animationRight, translateTransition, translateTransition2
+                animationRight, translateTransition2
         );
-
     }
-
-    private void moveOutPeople(final ParallelTransition nextAnim) {
+    private void moveOutRightPeople(final ParallelTransition nextAnim) {
+        System.out.println("move out right people");
         if (nextAnim==null) {
             return;
         }
-        TranslateTransition translateTransition = TranslateTransitionBuilder.create()
-                .duration(Duration.seconds(0.5))
-                .node(controller.getLeftImageView())
-                .fromY(controller.getLeftImageView().getTranslateY())
-                .toY(0)
-                .cycleCount(1)
-                .autoReverse(false)
-                .build();
+
+        this.rightCurrentTransition.stop();
+        this.rightCurrentTransition=nextAnim;
 
         TranslateTransition translateTransition2 = TranslateTransitionBuilder.create()
                 .duration(Duration.seconds(0.5))
@@ -284,7 +396,40 @@ public class GameController implements UsbListener {
                 .build();
         ParallelTransition moveOutTransition = new ParallelTransition();
         moveOutTransition.getChildren().addAll(
-                translateTransition, translateTransition2
+                translateTransition2
+        );
+
+        moveOutTransition.setOnFinished(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent t) {
+                        nextAnim.playFromStart();
+                    }
+                }
+        );
+        moveOutTransition.play();
+    }
+
+    private void moveOutLeftPeople(final ParallelTransition nextAnim) {
+        if (nextAnim==null) {
+            return;
+        }
+
+        this.leftCurrentTransition.stop();
+        this.leftCurrentTransition=nextAnim;
+
+        TranslateTransition translateTransition = TranslateTransitionBuilder.create()
+                .duration(Duration.seconds(0.5))
+                .node(controller.getLeftImageView())
+                .fromY(controller.getLeftImageView().getTranslateY())
+                .toY(0)
+                .cycleCount(1)
+                .autoReverse(false)
+                .build();
+
+        ParallelTransition moveOutTransition = new ParallelTransition();
+        moveOutTransition.getChildren().addAll(
+                translateTransition
         );
         moveOutTransition.setOnFinished(
                 new EventHandler<ActionEvent>() {
@@ -297,7 +442,7 @@ public class GameController implements UsbListener {
         moveOutTransition.play();
     }
 
-    private void setUI(int calBurn, int rpm, int highTemperature, int lowTemperature, int envTemperature) {
+    private void setUI(int calBurn, int rpm, float highTemperature, float lowTemperature, float envTemperature) {
         controller.getCalBurn().valueProperty().set(calBurn);
         controller.getRpmLabel().setText(String.valueOf(rpm));
         controller.getHighTemperatureLabel().setText(String.valueOf(highTemperature)+(char)186+"C");
@@ -310,7 +455,7 @@ public class GameController implements UsbListener {
         setReceivingDataTimestamp();
         if (this.gameStats!=null) {
             if (state.equals(GameState.READY)) {
-                this.runGame();
+                this.state.next();
             }
             this.gameStats.setRpm(rpm);
         }
@@ -321,21 +466,21 @@ public class GameController implements UsbListener {
     }
 
     @Override
-    public void setHighTemperature(int degree) {
+    public void setHighTemperature(float degree) {
         if (this.gameStats!=null) {
             this.gameStats.setHighTemperature(degree);
         }
     }
 
     @Override
-    public void setLowTemperature(int degree) {
+    public void setLowTemperature(float degree) {
         if (this.gameStats!=null) {
             this.gameStats.setLowTemperature(degree);
         }
     }
 
     @Override
-    public void setEnvTemperature(int degree) {
+    public void setEnvTemperature(float degree) {
         if (this.gameStats!=null) {
             this.gameStats.setEnvTemperature(degree);
         }

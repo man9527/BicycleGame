@@ -2,7 +2,9 @@ package com.jawi.game;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
+import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -11,9 +13,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class GameStats {
 
     private IntegerProperty rpm = new SimpleIntegerProperty(0);
-    private IntegerProperty envTemperature = new SimpleIntegerProperty(20);
-    private IntegerProperty lowTemperature = new SimpleIntegerProperty(20);
-    private IntegerProperty highTemperature = new SimpleIntegerProperty(30);
+    private FloatProperty envTemperature = new SimpleFloatProperty(25);
+    private FloatProperty lowTemperature = new SimpleFloatProperty(20);
+    private FloatProperty highTemperature = new SimpleFloatProperty(30);
 
     private IntegerProperty totalBurn = new SimpleIntegerProperty(0);
     private IntegerProperty calBurn = new SimpleIntegerProperty(0);
@@ -43,39 +45,39 @@ public class GameStats {
         return rpm;
     }
 
-    public void setEnvTemperature(int degree) {
+    public void setEnvTemperature(float degree) {
         envTemperature.set(degree);
     }
 
-    public int getEnvTemperature() {
+    public float getEnvTemperature() {
         return envTemperature.get();
     }
 
-    public IntegerProperty envTemperatureProperty() {
+    public FloatProperty envTemperatureProperty() {
         return envTemperature;
     }
 
-    public int getLowTemperature() {
+    public float getLowTemperature() {
         return lowTemperature.get();
     }
 
-    public IntegerProperty lowTemperatureProperty() {
+    public FloatProperty lowTemperatureProperty() {
         return lowTemperature;
     }
 
-    public void setLowTemperature(int lowTemperature) {
+    public void setLowTemperature(float lowTemperature) {
         this.lowTemperature.set(lowTemperature);
     }
 
-    public int getHighTemperature() {
+    public float getHighTemperature() {
         return highTemperature.get();
     }
 
-    public IntegerProperty highTemperatureProperty() {
+    public FloatProperty highTemperatureProperty() {
         return highTemperature;
     }
 
-    public void setHighTemperature(int highTemperature) {
+    public void setHighTemperature(float highTemperature) {
         this.highTemperature.set(highTemperature);
     }
 

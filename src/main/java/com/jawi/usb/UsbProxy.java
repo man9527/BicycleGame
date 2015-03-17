@@ -55,20 +55,33 @@ public class UsbProxy implements Protocol {
         running = true;
         executorService.submit(() -> {
             while(running) {
-                int rpm = random.nextInt(10)+20;
-                int highTemperature = random.nextInt(10)+20;
-                int lowTemperature = random.nextInt(10)+10;
-                int envTemperature = random.nextInt(2)+20;
+                byte[] buffer = new byte[13];
+                buffer[0]=48;
+                buffer[1]= (byte) (random.nextInt(1)+1);
+                buffer[2]= (byte) (random.nextInt(9));
+                buffer[3]= (byte) (random.nextInt(9));
+
+                buffer[5]= (byte) (random.nextInt(2)+2);
+                buffer[6]= (byte) (random.nextInt(9));
+                buffer[7]= (byte) (random.nextInt(9));
+
+                buffer[9]= 0;
+                buffer[10]= 0;
+                buffer[11]= (byte) (random.nextInt(9));
+                buffer[12]= (byte) (random.nextInt(9));
+
+                int rpm = NumberParser.parseRpm(buffer);
+                float highTemperature = NumberParser.parseHighTemperature(buffer);
+                float lowTemperature = NumberParser.parseLowTemperature(buffer);
 
                 listeners.forEach((e)->{
                     e.setRpm(rpm);
                     e.setHighTemperature(highTemperature);
                     e.setLowTemperature(lowTemperature);
-                    e.setEnvTemperature(envTemperature);
                 });
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -115,6 +128,12 @@ public class UsbProxy implements Protocol {
             int rpm = NumberParser.parseRpm(buffer);
             float highTemperature = NumberParser.parseHighTemperature(buffer);
             float lowTemperature = NumberParser.parseLowTemperature(buffer);
+
+            listeners.forEach((e)->{
+                e.setRpm(rpm);
+                e.setHighTemperature(highTemperature);
+                e.setLowTemperature(lowTemperature);
+            });
 
         }
         return "";

@@ -28,8 +28,12 @@ public class Main extends Application {
         Controller controller = fxmlLoader.getController();
 
         GameController.get().setView(controller);
-        UsbProxy.get().addListener(GameController.get());
 
+        if (System.getProperty("envTemperature")!=null) {
+            controller.getEnvTemperatureLabel().setText(System.getProperty("envTemperature") + +(char)186+"C");
+        }
+
+        UsbProxy.get().addListener(GameController.get());
         UsbProxy.get().connect();
 
         Scene scene = new Scene(root, 1024, 768);

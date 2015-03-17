@@ -16,11 +16,4 @@ public class NumberParser {
         return buffer[1]*10 + buffer[2] + ((float)buffer[3])/10;
     }
 
-    public static void main(String[] args) {
-        byte[] b = {48, 2, 4, 8, 49, 2, 3, 3, 50, 0, 0, 5, 7, 51};
-
-        System.out.println(parseRpm(b));
-        System.out.println(parseLowTemperature(b));
-        System.out.println(parseHighTemperature(b));
-    }
 }

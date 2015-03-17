@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -24,12 +23,12 @@
          </rowConstraints>
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <Label fx:id="lowTemperatureLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="512.0" text="20°C" textFill="WHITE" GridPane.rowIndex="1">
+            <Label fx:id="lowTemperatureLabel" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="512.0" text="20.0°C" textFill="WHITE" GridPane.rowIndex="1">
                <font>
-                  <Font name="Arial Black" size="47.0" />
+                  <Font name="Arial Black" size="38.0" />
                </font>
                <padding>
-                  <Insets right="30.0" top="5.0" />
+                  <Insets right="25.0" top="9.0" />
                </padding>
             </Label>
             <HBox opacity="0.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -52,12 +51,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="envTemperatureLabel" alignment="CENTER" contentDisplay="CENTER" text="20°C" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                  <Label fx:id="envTemperatureLabel" alignment="CENTER" contentDisplay="CENTER" text="25.0°C" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font name="Arial Black" size="52.0" />
+                        <Font name="Arial Black" size="48.0" />
                      </font>
                      <padding>
-                        <Insets bottom="20.0" left="10.0" />
+                        <Insets bottom="25.0" left="10.0" />
                      </padding>
                      </Label>
                    <Slider fx:id="calBurn" max="300.0" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="16.0" prefWidth="360.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
@@ -95,12 +94,12 @@
                   </Pane>
                </children>
             </GridPane>
-            <Label fx:id="highTemperatureLabel" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="512.0" text="30°C" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="highTemperatureLabel" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="512.0" text="30.0°C" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <padding>
-                  <Insets right="30.0" top="5.0" />
+                  <Insets right="25.0" top="9.0" />
                </padding>
                <font>
-                  <Font name="Arial Black" size="47.0" />
+                  <Font name="Arial Black" size="38.0" />
                </font>
             </Label>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -143,7 +142,7 @@
                   <Font size="34.0" />
                </font>
                <padding>
-                  <Insets left="90.0" top="15.0" />
+                  <Insets left="95.0" top="15.0" />
                </padding>
             </Label>
             <Label fx:id="gameResultTextLabel" text="000" textFill="WHITE">

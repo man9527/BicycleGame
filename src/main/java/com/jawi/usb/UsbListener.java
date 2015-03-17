@@ -5,7 +5,7 @@ package com.jawi.usb;
  */
 public interface UsbListener {
     void setRpm(int rpm);
-    void setHighTemperature(int degree);
-    void setLowTemperature(int degree);
-    void setEnvTemperature(int degree);
+    void setHighTemperature(float degree);
+    void setLowTemperature(float degree);
+    void setEnvTemperature(float degree);
 }
