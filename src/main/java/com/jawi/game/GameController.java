@@ -143,7 +143,7 @@ public class GameController implements UsbListener {
                     initLeftImages(parallelTransitionLeft3, 4);
                     p=parallelTransitionLeft3;
                 }
-                GameController.this.moveOutLeftPeople(p);
+                moveOutLeftPeople(p);
             }
         });
 
@@ -169,7 +169,7 @@ public class GameController implements UsbListener {
                     initRightImages(parallelTransitionRight3, 5);
                     p=parallelTransitionRight3;
                 }
-                GameController.this.moveOutRightPeople(p);
+                moveOutRightPeople(p);
             }
         });
     }
@@ -345,7 +345,7 @@ public class GameController implements UsbListener {
         TranslateTransition translateTransition = TranslateTransitionBuilder.create()
                 .duration(Duration.seconds(0.5))
                 .node(controller.getLeftImageView())
-                .fromY(controller.getLeftImageView().getTranslateY())
+                .fromY(0)
                 .toY(-502)
                 .cycleCount(1)
                 .autoReverse(false)
@@ -365,7 +365,7 @@ public class GameController implements UsbListener {
         TranslateTransition translateTransition2 = TranslateTransitionBuilder.create()
                 .duration(Duration.seconds(0.5))
                 .node(controller.getRightImageView())
-                .fromY(controller.getRightImageView().getTranslateY())
+                .fromY(0)
                 .toY(-502)
                 .cycleCount(1)
                 .autoReverse(false)
@@ -383,7 +383,7 @@ public class GameController implements UsbListener {
             return;
         }
 
-        this.rightCurrentTransition.stop();
+        //this.rightCurrentTransition.stop();
         this.rightCurrentTransition=nextAnim;
 
         TranslateTransition translateTransition2 = TranslateTransitionBuilder.create()
@@ -415,7 +415,7 @@ public class GameController implements UsbListener {
             return;
         }
 
-        this.leftCurrentTransition.stop();
+        //this.leftCurrentTransition.stop();
         this.leftCurrentTransition=nextAnim;
 
         TranslateTransition translateTransition = TranslateTransitionBuilder.create()

@@ -39,16 +39,17 @@
       <file leaf-file-name="GameController.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jawi/game/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.019762846" vertical-offset="5443" max-vertical-offset="7871">
-              <caret line="340" column="17" selection-start-line="340" selection-start-column="17" selection-end-line="340" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.8705534" vertical-offset="6191" max-vertical-offset="8262">
+              <caret line="437" column="24" selection-start-line="437" selection-start-column="24" selection-end-line="437" selection-end-column="24" />
               <folding>
-                <element signature="e#4599#5815#0" expanded="true" />
-                <element signature="e#5804#5805#0" expanded="true" />
-                <element signature="e#5860#7074#0" expanded="true" />
-                <element signature="e#7063#7064#0" expanded="true" />
-                <element signature="method#initRightImages#0;class#GameController#0" expanded="false" />
-                <element signature="e#16043#16252#0" expanded="true" />
-                <element signature="e#16233#16234#0" expanded="true" />
+                <element signature="e#4599#5795#0" expanded="true" />
+                <element signature="e#5784#5785#0" expanded="true" />
+                <element signature="e#5840#7034#0" expanded="true" />
+                <element signature="e#7023#7024#0" expanded="true" />
+                <element signature="e#15916#16125#0" expanded="true" />
+                <element signature="e#16106#16107#0" expanded="true" />
+                <element signature="e#17003#17212#0" expanded="true" />
+                <element signature="e#17193#17194#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -713,12 +714,12 @@
       <workItem from="1426212696669" duration="7718000" />
       <workItem from="1426301601504" duration="2801000" />
       <workItem from="1426400429598" duration="13155000" />
-      <workItem from="1426598592733" duration="11398000" />
+      <workItem from="1426598592733" duration="14637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135233000" />
+    <option name="totallyTimeSpent" value="138472000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -890,13 +891,14 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1590">
           <caret line="91" column="32" selection-start-line="91" selection-start-column="32" selection-end-line="91" selection-end-column="32" />
           <folding>
-            <element signature="e#4599#5815#0" expanded="true" />
-            <element signature="e#5804#5805#0" expanded="true" />
-            <element signature="e#5860#7074#0" expanded="true" />
-            <element signature="e#7063#7064#0" expanded="true" />
-            <element signature="method#initRightImages#0;class#GameController#0" expanded="false" />
-            <element signature="e#16043#16252#0" expanded="true" />
-            <element signature="e#16233#16234#0" expanded="true" />
+            <element signature="e#4599#5795#0" expanded="true" />
+            <element signature="e#5784#5785#0" expanded="true" />
+            <element signature="e#5840#7034#0" expanded="true" />
+            <element signature="e#7023#7024#0" expanded="true" />
+            <element signature="e#15916#16125#0" expanded="true" />
+            <element signature="e#16106#16107#0" expanded="true" />
+            <element signature="e#17003#17212#0" expanded="true" />
+            <element signature="e#17193#17194#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -962,13 +964,14 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="1391" max-vertical-offset="1860">
           <caret line="65" column="29" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
           <folding>
-            <element signature="e#4599#5815#0" expanded="true" />
-            <element signature="e#5804#5805#0" expanded="true" />
-            <element signature="e#5860#7074#0" expanded="true" />
-            <element signature="e#7063#7064#0" expanded="true" />
-            <element signature="method#initRightImages#0;class#GameController#0" expanded="false" />
-            <element signature="e#16043#16252#0" expanded="true" />
-            <element signature="e#16233#16234#0" expanded="true" />
+            <element signature="e#4599#5795#0" expanded="true" />
+            <element signature="e#5784#5785#0" expanded="true" />
+            <element signature="e#5840#7034#0" expanded="true" />
+            <element signature="e#7023#7024#0" expanded="true" />
+            <element signature="e#15916#16125#0" expanded="true" />
+            <element signature="e#16106#16107#0" expanded="true" />
+            <element signature="e#17003#17212#0" expanded="true" />
+            <element signature="e#17193#17194#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1199,6 +1202,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
           <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1285,16 +1289,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jawi/game/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.019762846" vertical-offset="5443" max-vertical-offset="7871">
-          <caret line="340" column="17" selection-start-line="340" selection-start-column="17" selection-end-line="340" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.8705534" vertical-offset="6191" max-vertical-offset="8262">
+          <caret line="437" column="24" selection-start-line="437" selection-start-column="24" selection-end-line="437" selection-end-column="24" />
           <folding>
-            <element signature="e#4599#5815#0" expanded="true" />
-            <element signature="e#5804#5805#0" expanded="true" />
-            <element signature="e#5860#7074#0" expanded="true" />
-            <element signature="e#7063#7064#0" expanded="true" />
-            <element signature="method#initRightImages#0;class#GameController#0" expanded="false" />
-            <element signature="e#16043#16252#0" expanded="true" />
-            <element signature="e#16233#16234#0" expanded="true" />
+            <element signature="e#4599#5795#0" expanded="true" />
+            <element signature="e#5784#5785#0" expanded="true" />
+            <element signature="e#5840#7034#0" expanded="true" />
+            <element signature="e#7023#7024#0" expanded="true" />
+            <element signature="e#15916#16125#0" expanded="true" />
+            <element signature="e#16106#16107#0" expanded="true" />
+            <element signature="e#17003#17212#0" expanded="true" />
+            <element signature="e#17193#17194#0" expanded="true" />
           </folding>
         </state>
       </provider>
