@@ -42,25 +42,10 @@ public class Main extends Application {
         scene.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                GameController.get().next();
+                GameController.get().next(null);
             }
         });
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        executorService.submit(() -> {
-            while(true) {
-                try {
-                    Thread.sleep(70000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(() -> {
-                    //GameController.get().next();
-                });
-            }
-        });
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
 
         //primaryStage.setFullScreen(true);

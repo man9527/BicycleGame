@@ -28,6 +28,17 @@ public class GameStats {
         });
     }
 
+    public GameStats(final IntegerProperty timePassed, float envTemperature, float highTemperature, float lowTemperature) {
+        this.timePassed = timePassed;
+        this.envTemperature = new SimpleFloatProperty(envTemperature);
+        this.highTemperature = new SimpleFloatProperty(highTemperature);
+        this.lowTemperature = new SimpleFloatProperty(lowTemperature);
+
+        calBurn.addListener((event)->{
+            totalBurn.set(totalBurn.intValue()+calBurn.intValue());
+        });
+    }
+
     public double getTotalBurn() {
         calBurn.set(rpm.get()/4);
         return totalBurn.doubleValue();

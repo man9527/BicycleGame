@@ -82,7 +82,7 @@ public class GameController implements UsbListener {
     private long receivingDataTimestamp;
     private Timer gameTimer;
     private Timer updateUITimer;
-    private Timer changePeopleTimer;
+    //private Timer changePeopleTimer;
 
     private GameStats gameStats;
 
@@ -180,10 +180,12 @@ public class GameController implements UsbListener {
         this.controller=controller;
     }
 
-    public void next() {
+    public void next(GameState verifyState) {
         System.out.print("From "+this.state);
         synchronized (this.state) {
-            this.state.next();
+            if (verifyState==null || this.state.equals(verifyState)) {
+                this.state.next();
+            }
         }
         System.out.print(" To "+this.state);
     }
@@ -194,7 +196,11 @@ public class GameController implements UsbListener {
         }
 
         timePassed = new SimpleIntegerProperty(0);
-        gameStats = new GameStats(timePassed);
+        if (gameStats==null) {
+            gameStats = new GameStats(timePassed);
+        } else {
+            gameStats = new GameStats(timePassed, gameStats.getEnvTemperature(), gameStats.getHighTemperature(), gameStats.getLowTemperature());
+        }
         setUI((int) gameStats.getTotalBurn(), gameStats.getRpm(), gameStats.getHighTemperature(), gameStats.getLowTemperature(), gameStats.getEnvTemperature());
         controller.getClock().setText("60");
 
@@ -207,7 +213,6 @@ public class GameController implements UsbListener {
     }
 
     public void runGame() {
-        System.out.println("game run");
         handleGameTime();
         state=GameState.RUNNING;
     }
@@ -216,8 +221,8 @@ public class GameController implements UsbListener {
         state = GameState.STOPPED;
         updateUITimer.stop();
         gameTimer.stop();
-        //changePeopleTimer.stop();
-        //currentTransition.stop();
+        this.leftCurrentTransition.stop();
+        this.rightCurrentTransition.stop();
 
         controller.getGameResultTextLabel().setText(String.format(formatStr, this.gameStats.totalBurnProperty().getValue()));
         this.showHideResultLabel(true);
@@ -225,7 +230,7 @@ public class GameController implements UsbListener {
         //auto restart
         FxTimer.runLater(java.time.Duration.ofSeconds(20), ()-> {
             if (this.state.equals(GameState.STOPPED)) {
-                this.state.next();
+                this.next(GameState.STOPPED);
             }
         });
     }
@@ -286,36 +291,13 @@ public class GameController implements UsbListener {
                     () -> {
                         setUI((int) gameStats.getTotalBurn(), gameStats.getRpm(), gameStats.getHighTemperature(), gameStats.getLowTemperature(), gameStats.getEnvTemperature());
                         this.leftImageIndex.set(this.determineNextLeftImage());
-                        this.rightImageIndex.set(this.determineNextrightImage());
-                        System.out.println("right index:" + this.determineNextrightImage());
+                        this.rightImageIndex.set(this.determineNextRightImage());
+                        System.out.println("right index:" + this.determineNextRightImage());
                     });
-
-//            changePeopleTimer = FxTimer.runPeriodically(
-//                    java.time.Duration.ofMillis(20000),
-//                    () -> {
-//                        ParallelTransition nextTransition=null;
-//                        System.out.println(timePassed.get());
-//                        if (timePassed.get()>=20 && timePassed.get()<40) {
-//                            System.out.println("ani2");
-//                            nextTransition = parallelTransition2;
-//                        } else if (timePassed.get()>=40 && timePassed.get()<60) {
-//                            System.out.println("ani3");
-//                            nextTransition = parallelTransition3;
-//                        } else if (timePassed.get()==60){
-//                            System.out.println("ani0"+timePassed.get());
-//                            nextTransition = parallelTransition;
-//                        }
-//                        currentTransition.stop();
-//                        moveOutPeople(nextTransition);
-//                        currentTransition = nextTransition;
-//                    });
         } else {
             gameTimer.restart();
             updateUITimer.restart();
-            //changePeopleTimer.restart();
         }
-
-        //currentTransition.playFromStart();
     }
 
     private int determineNextLeftImage() {
@@ -328,7 +310,7 @@ public class GameController implements UsbListener {
         }
     }
 
-    private int determineNextrightImage() {
+    private int determineNextRightImage() {
         if (this.gameStats.getHighTemperature()<25) {
             return 1;
         } else if (this.gameStats.getHighTemperature()>30) {
@@ -455,7 +437,7 @@ public class GameController implements UsbListener {
         setReceivingDataTimestamp();
         if (this.gameStats!=null) {
             if (state.equals(GameState.READY)) {
-                this.state.next();
+                this.next(GameState.READY);
             }
             this.gameStats.setRpm(rpm);
         }

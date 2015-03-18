@@ -78,6 +78,7 @@ public class UsbProxy implements Protocol {
                     e.setRpm(rpm);
                     e.setHighTemperature(highTemperature);
                     e.setLowTemperature(lowTemperature);
+                    e.setEnvTemperature((highTemperature+lowTemperature)/2F);
                 });
 
                 try {
@@ -133,6 +134,7 @@ public class UsbProxy implements Protocol {
                 e.setRpm(rpm);
                 e.setHighTemperature(highTemperature);
                 e.setLowTemperature(lowTemperature);
+                e.setEnvTemperature((highTemperature+lowTemperature)/2F);
             });
 
         }
