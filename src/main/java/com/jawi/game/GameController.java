@@ -263,10 +263,27 @@ public class GameController implements UsbListener {
 
         //new ParallelTransition(parallelTransitionLeft1, parallelTransitionRight1).play();
 
-        parallelTransitionLeft1.play();
-        parallelTransitionRight1.play();
-        this.leftCurrentTransition=parallelTransitionLeft1;
-        this.rightCurrentTransition=parallelTransitionRight1;
+        int leftIndex = this.determineNextLeftImage();
+        int rightIndex = this.determineNextLeftImage();
+
+        if (leftIndex==1) {
+            this.leftCurrentTransition=parallelTransitionLeft1;
+        } else if (leftIndex==2) {
+            this.leftCurrentTransition=parallelTransitionLeft2;
+        } else {
+            this.leftCurrentTransition=parallelTransitionLeft3;
+        }
+
+        if (rightIndex==1) {
+            this.rightCurrentTransition=parallelTransitionRight1;
+        } else if (rightIndex==2) {
+            this.rightCurrentTransition=parallelTransitionRight2;
+        } else {
+            this.rightCurrentTransition=parallelTransitionRight3;
+        }
+
+        this.leftCurrentTransition.play();
+        this.rightCurrentTransition.play();
 
         if (true) {
             gameTimer = FxTimer.runPeriodically(

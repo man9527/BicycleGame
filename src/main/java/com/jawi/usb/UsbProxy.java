@@ -57,7 +57,7 @@ public class UsbProxy implements Protocol {
             while(running) {
                 byte[] buffer = new byte[13];
                 buffer[0]=48;
-                buffer[1]= (byte) (random.nextInt(1)+1);
+                buffer[1]= (byte) (random.nextInt(2)+1);
                 buffer[2]= (byte) (random.nextInt(9));
                 buffer[3]= (byte) (random.nextInt(9));
 
