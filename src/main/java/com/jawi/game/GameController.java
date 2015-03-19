@@ -224,7 +224,7 @@ public class GameController implements UsbListener {
         this.leftCurrentTransition.stop();
         this.rightCurrentTransition.stop();
 
-        controller.getGameResultTextLabel().setText(String.format(formatStr, this.gameStats.totalBurnProperty().getValue()));
+        controller.getGameResultTextLabel().setText(String.format("%03d", this.gameStats.totalBurnProperty().getValue()));
         this.showHideResultLabel(true);
 
         //auto restart
@@ -427,9 +427,9 @@ public class GameController implements UsbListener {
     private void setUI(int calBurn, int rpm, float highTemperature, float lowTemperature, float envTemperature) {
         controller.getCalBurn().valueProperty().set(calBurn);
         controller.getRpmLabel().setText(String.valueOf(rpm));
-        controller.getHighTemperatureLabel().setText(String.valueOf(highTemperature)+(char)186+"C");
-        controller.getLowTemperatureLabel().setText(String.valueOf(lowTemperature)+(char)186+"C");
-        controller.getEnvTemperatureLabel().setText(String.valueOf(envTemperature)+(char)186+"C");
+        controller.getHighTemperatureLabel().setText(String.format("%.1f", highTemperature)+(char)186+"C");
+        controller.getLowTemperatureLabel().setText(String.format("%.1f", lowTemperature)+(char)186+"C");
+        controller.getEnvTemperatureLabel().setText(String.format("%.1f", envTemperature)+(char)186+"C");
     }
 
     @Override
