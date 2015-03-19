@@ -20,6 +20,7 @@ import org.reactfx.util.Timer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by man9527 on 2015/2/20.
@@ -442,6 +443,11 @@ public class GameController implements UsbListener {
     }
 
     private void setUI(int calBurn, int rpm, float highTemperature, float lowTemperature, float envTemperature) {
+
+        if (rpm>0 && rpm/20>0) {
+            rpm=rpm+new Random().nextInt(rpm/20);
+        }
+
         controller.getCalBurn().valueProperty().set(calBurn);
         controller.getRpmLabel().setText(String.valueOf(rpm));
         controller.getHighTemperatureLabel().setText(String.format("%.1f", highTemperature)+(char)186+"C");
