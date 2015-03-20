@@ -16,6 +16,8 @@ public class GameStats {
     private FloatProperty envTemperature = new SimpleFloatProperty(25);
     private FloatProperty lowTemperature = new SimpleFloatProperty(20);
     private FloatProperty highTemperature = new SimpleFloatProperty(30);
+    private float initLowTemperature = lowTemperature.get();
+    private float initHighTemperature = highTemperature.get();
 
     private IntegerProperty totalBurn = new SimpleIntegerProperty(0);
     private IntegerProperty calBurn = new SimpleIntegerProperty(0);
@@ -40,8 +42,32 @@ public class GameStats {
     }
 
     public double getTotalBurn() {
-        calBurn.set(rpm.get()/4);
+        calBurn.set((int)(rpm.get()/3.5));
         return totalBurn.doubleValue();
+    }
+
+    public float getInitLowTemperature() {
+        return initLowTemperature;
+    }
+
+    public void setInitLowTemperature(float initLowTemperature) {
+        this.initLowTemperature = initLowTemperature;
+    }
+
+    public float getInitHighTemperature() {
+        return initHighTemperature;
+    }
+
+    public void setInitHighTemperature(float initHighTemperature) {
+        this.initHighTemperature = initHighTemperature;
+    }
+
+    public float getHighTemperatureDiff() {
+        return this.getHighTemperature()-this.getInitHighTemperature();
+    }
+
+    public float getLowTemperatureDiff() {
+        return this.getLowTemperature()-this.getInitLowTemperature();
     }
 
     public IntegerProperty totalBurnProperty() {

@@ -214,6 +214,8 @@ public class GameController implements UsbListener {
     }
 
     public void runGame() {
+        gameStats.setInitHighTemperature(gameStats.getHighTemperature());
+        gameStats.setInitLowTemperature(gameStats.getLowTemperature());
         handleGameTime();
         state=GameState.RUNNING;
     }
@@ -264,24 +266,27 @@ public class GameController implements UsbListener {
 
         //new ParallelTransition(parallelTransitionLeft1, parallelTransitionRight1).play();
 
-        int leftIndex = this.determineNextLeftImage();
-        int rightIndex = this.determineNextLeftImage();
+//        int leftIndex = this.determineNextLeftImage();
+//        int rightIndex = this.determineNextLeftImage();
 
-        if (leftIndex==1) {
-            this.leftCurrentTransition=parallelTransitionLeft1;
-        } else if (leftIndex==2) {
-            this.leftCurrentTransition=parallelTransitionLeft2;
-        } else {
-            this.leftCurrentTransition=parallelTransitionLeft3;
-        }
+//        if (leftIndex==1) {
+//            this.leftCurrentTransition=parallelTransitionLeft1;
+//        } else if (leftIndex==2) {
+//            this.leftCurrentTransition=parallelTransitionLeft2;
+//        } else {
+//            this.leftCurrentTransition=parallelTransitionLeft3;
+//        }
+//
+//        if (rightIndex==1) {
+//            this.rightCurrentTransition=parallelTransitionRight1;
+//        } else if (rightIndex==2) {
+//            this.rightCurrentTransition=parallelTransitionRight2;
+//        } else {
+//            this.rightCurrentTransition=parallelTransitionRight3;
+//        }
 
-        if (rightIndex==1) {
-            this.rightCurrentTransition=parallelTransitionRight1;
-        } else if (rightIndex==2) {
-            this.rightCurrentTransition=parallelTransitionRight2;
-        } else {
-            this.rightCurrentTransition=parallelTransitionRight3;
-        }
+        this.leftCurrentTransition = parallelTransitionLeft1;
+        this.rightCurrentTransition = parallelTransitionRight1;
 
         this.leftCurrentTransition.play();
         this.rightCurrentTransition.play();
@@ -310,7 +315,7 @@ public class GameController implements UsbListener {
                         setUI((int) gameStats.getTotalBurn(), gameStats.getRpm(), gameStats.getHighTemperature(), gameStats.getLowTemperature(), gameStats.getEnvTemperature());
                         this.leftImageIndex.set(this.determineNextLeftImage());
                         this.rightImageIndex.set(this.determineNextRightImage());
-                        System.out.println("right index:" + this.determineNextRightImage());
+
                     });
         } else {
             gameTimer.restart();
@@ -319,9 +324,11 @@ public class GameController implements UsbListener {
     }
 
     private int determineNextLeftImage() {
-        if (this.gameStats.getLowTemperature()<15) {
+        float diff = gameStats.getLowTemperatureDiff();
+        System.out.println("low temp diff:" + diff);
+        if (diff<-3.5) {
             return 3;
-        } else if (this.gameStats.getLowTemperature()>20) {
+        } else if (diff>-1.75) {
             return 1;
         } else {
             return 2;
@@ -329,9 +336,11 @@ public class GameController implements UsbListener {
     }
 
     private int determineNextRightImage() {
-        if (this.gameStats.getHighTemperature()<25) {
+        float diff = gameStats.getHighTemperatureDiff();
+        System.out.println("high temp diff:"+ diff);
+        if (diff < 1.75) {
             return 1;
-        } else if (this.gameStats.getHighTemperature()>30) {
+        } else if (diff>3.5) {
             return 3;
         } else {
             return 2;

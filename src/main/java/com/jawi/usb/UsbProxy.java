@@ -67,7 +67,7 @@ public class UsbProxy implements Protocol {
 
                 buffer[9]= 0;
                 buffer[10]= 0;
-                buffer[11]= (byte) (random.nextInt(9));
+                buffer[11]= (byte) (random.nextInt(3)+6);
                 buffer[12]= (byte) (random.nextInt(9));
 
                 int rpm = NumberParser.parseRpm(buffer);
