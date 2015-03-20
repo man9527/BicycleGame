@@ -9,10 +9,11 @@ import java.io.InputStream;
 public class CommPortReceiver extends Thread {
 
     InputStream in;
-    Protocol protocol = new ProtocolImpl();
+    Protocol protocol;
 
-    public CommPortReceiver(InputStream in) {
+    public CommPortReceiver(InputStream in, Protocol protocol) {
         this.in = in;
+        this.protocol = protocol;
     }
 
     public void run() {

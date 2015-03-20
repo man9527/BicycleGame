@@ -135,7 +135,7 @@
          </children>
       </GridPane>
 
-      <Pane fx:id="gameResultLabel" prefHeight="143.0" prefWidth="322.0" style="-fx-background-color: linear-gradient(#FF99FF, #CC0099); -fx-border-color: white; -fx-border-width: 5; -fx-background-radius: 50; -fx-border-radius: 50; -fx-eff: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 2 , 5 );" translateY="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="300.0">
+      <Pane fx:id="gameResultLabel" prefHeight="143.0" prefWidth="322.0" translateY="500.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="300.0">
          <children>
             <Label text="本次功率" textFill="WHITE">
                <font>

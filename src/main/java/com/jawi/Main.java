@@ -29,6 +29,13 @@ public class Main extends Application {
 
         GameController.get().setView(controller);
 
+//        controller.getGameResultLabel().setStyle( "-fx-background-color: linear-gradient(#FF99FF, #CC0099);\n" +
+//                "    -fx-border-color: white; -fx-border-width: 5;\n" +
+//                "    -fx-background-radius: 20 20 20 20;\n" +
+//                "    -fx-border-radius: 20 20 20 20;\n" +
+//                "    -fx-eff: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 2 , 5 );");
+
+
         if (System.getProperty("envTemperature")!=null) {
             controller.getEnvTemperatureLabel().setText(System.getProperty("envTemperature") + +(char)186+"C");
         }
@@ -48,7 +55,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
 
-        //primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
         Node thumb = controller.getCalBurn().lookup(".thumb");

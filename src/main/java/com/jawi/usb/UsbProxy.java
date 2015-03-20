@@ -23,7 +23,6 @@ public class UsbProxy implements Protocol {
     private byte[] buffer = new byte[1024];
     private int tail = 0;
 
-
     public static UsbProxy get() {return instance;}
 
     public void connect() throws NoSuchPortException, UnsupportedCommOperationException, PortInUseException, IOException {
@@ -46,7 +45,7 @@ public class UsbProxy implements Protocol {
                 CommPortSender.setWriterStream(serialPort.getOutputStream());
 
                 // setup serial port reader
-                new CommPortReceiver(serialPort.getInputStream()).start();
+                new CommPortReceiver(serialPort.getInputStream(), this).start();
             }
         }
     }

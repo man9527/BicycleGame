@@ -10,3 +10,11 @@
     -fx-background-radius: 2.5, 2.5, 1.5;
     -fx-padding: 0.208333em; /* 2.5 */
 }
+
+#gameResultLabel {
+    -fx-background-color: linear-gradient(#FF99FF, #CC0099);
+    -fx-border-color: white; -fx-border-width: 5;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+    -fx-eff: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 2 , 5 );
+}
